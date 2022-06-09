@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import ListaAvenidas from "./ListaAvenidas";
 
 const Pagina = () => {
-  //   const numero = 5;
-  //   const texto = "meu numero é:";
-
-  //  const [texto, setTexto] = useState("");
-
-  //   useEffect(() => {
-  //     if (texto.length > 4) console.log(texto);
-  //   }, [texto]);
+  const [avenidas, setAvenidas] = useState([]);
 
   useEffect(() => {
-    axios.get("https://viacep.com.br/ws/SP/Sao%20Paulo/Presidente/json/");
+    axios
+      .get("https://viacep.com.br/ws/SP/Sao%20Paulo/Presidente/json/")
+      .then((response) => {
+        setAvenidas(response.data);
+      });
   }, []);
 
   return (
     <>
-      <h1>Minha Pagina</h1>
-      {/* <input value={texto} onChange={(event) => setTexto(event.target.value)} /> */}
-      {/* {`${texto} ${numero}`} */}
+      <h1>Logradouros 'Presidente' em SP</h1>
+      <hr></hr>
+      <ListaAvenidas avenidas={avenidas} />
     </>
   );
 };
